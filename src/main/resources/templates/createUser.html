@@ -42,83 +42,70 @@
 				<li class="nav-item "><a class="nav-link" href="/home">Home
 						<span class="sr-only"></span>
 				</a></li>
+
 				<li class="nav-item dropdown "><a
-					class="nav-link dropdown-toggle " href="/users/all" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Users </a>
+					class="nav-link dropdown-toggle active" href="/users/all"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Users </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="/users/all">All Users</a> <a
-							class="dropdown-item " href="/users/create">Create User</a> 
-							
-					</div>
-					</li>
+							class="dropdown-item active" href="users/create">Create User</a>
+
+					</div></li>
 				<li class="nav-item dropdown "><a
-					class="nav-link dropdown-toggle active" href="/tasks/all" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Tasks </a>
+					class="nav-link dropdown-toggle " href="/tasks/all"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Tasks </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="/tasks/all">All tasks</a> <a
-							class="dropdown-item active" href="/tasks/create">Create task</a> 
-							
+							class="dropdown-item " href="/tasks/create">Create task</a>
+
 					</div></li>
 			</ul>
 
 		</div>
 	</nav>
 
-	<h1>tareas</h1>
-
-	<form th:action="@{/tasks/create}" method="post" th:object=${task}>
+	<h1>Create User</h1>
+	
+	<form th:action="@{/users/create}" method="post" th:object=${user}>
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label for="name">Name</label> <input type="text"
-					class="form-control" id="name" name="task_name">
+					class="form-control" id="name" name="name">
 			</div>
 			<div class="form-group col-md-4">
-				<label for="type">Type</label> <input type="text"
-					class="form-control" id="type" name="task_type">
+				<label for="type">Username</label> <input type="text"
+					class="form-control" id="type" name="username">
 			</div>
 
 			<div class="form-group col-md-4">
-				<label for="duration">Duration in hours</label> <input type="number"
-					class="form-control" id="duration" name="duration_hours">
-			</div>
-		</div>
-		<div class="form-group col-md-12">
-			<label for="duration">Description</label> <input type="text"
-				class="form-control" id="duration" name="description">
-		</div>
-		<div class="form-row">
-			<div class="form-group col-md-6">
-				<label for="startDate">Start</label> <input type="Date"
-					class="form-control" id="startDate" name="start_date">
-			</div>
-			<div class="form-group col-md-6">
-				<label for="inputEnd">End</label> <input type="Date"
-					class="form-control" id="inputEnd" name="end_date">
+				<label for="duration">Password</label> <input type="password"
+					class="form-control" id="duration" name="password">
 			</div>
 		</div>
 
 		<div class="form-row">
-
-
-			<div class="col-sm-12 col-md-6 justify-content-end">
-				Mark <br> <input type="radio" id="markYES" name="mark"
-					value="true"> <label for="mark">YES</label> <input
-					type="radio" id="markNO" name="mark" value="false"> <label
-					for="mark">NO</label>
+			<div class="form-group col-md-4">
+				<label for="duration">Description</label> <input type="text"
+					class="form-control" id="duration" name="description">
 			</div>
-			<div class="col-sm-12 col-md-6 justify-content-end">
-				Process <br> <input type="radio" id="processYES" name="process"
-					value="true"> <label for="markYES">YES</label> <input
-					type="radio" id="processNO" name="process" value="false"> <label
-					for="markNO">NO</label>
+			<div class="form-group col-md-4">
+				<label for="startDate">Email</label> <input type="email"
+					class="form-control" id="startDate" name="email">
 			</div>
+			
+			<div class="form-group col-md-4">
+				<label for="startDate">Role</label> <input type="text"
+					class="form-control" id="startDate" name="role">
+			</div>
+
 		</div>
+
+		
 
 		<button type="submit" class="btn btn-primary">Create</button>
 	</form>
-
 </body>
 
 </html>
