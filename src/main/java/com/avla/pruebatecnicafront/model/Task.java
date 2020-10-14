@@ -1,5 +1,6 @@
 package com.avla.pruebatecnicafront.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,6 @@ public class Task {
 	private String end_date;	
 	private boolean mark;
 	private boolean process;
+	//private User users;
 	
 }

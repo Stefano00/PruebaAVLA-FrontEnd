@@ -75,9 +75,19 @@ public class TaskServiceImpl implements ITaskService {
 	}
 
 	@Override
-	public Task findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Task> findById(Integer id) {
+		
+		HttpHeaders headers = new HttpHeaders();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
+		headers.setBearerAuth(principal.get("token").toString());
+		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
+
+		ResponseEntity<List<Task>> response = restTemplate.exchange("http://localhost:5000/api/v1/users/taskById/"+id,
+				HttpMethod.GET, request, new ParameterizedTypeReference<List<Task>>() {
+				});
+		return response.getBody();
+		
 	}
 
 

@@ -1,7 +1,5 @@
 package com.avla.pruebatecnicafront.model;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,15 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserTask {
 	
 	private Integer id;
-	private String name;
-	private String username;
-	private String password;
-	private String email;
-	private Role roles;
-	private List<Task> tasks;
-
+	private Integer id_user;
+	private Integer id_task;
 
 }

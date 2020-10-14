@@ -9,6 +9,6 @@ public interface ITaskService {
 	List<Task> findAll();
 	void createTask(Task task);
 	void editTask(Task task);
-	Task findById(Integer id);
+	List<Task> findById(Integer id);
 
 }
