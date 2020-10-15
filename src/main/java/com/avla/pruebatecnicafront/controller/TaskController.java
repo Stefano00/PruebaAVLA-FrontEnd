@@ -53,12 +53,14 @@ public class TaskController {
 	@PostMapping("/create")
 	public String postCreate(@ModelAttribute Task task, @RequestParam Integer id_user, Model model) {
 		taskService.createTask(task);
+		
 		UserTask userTask = new UserTask();
 		userTask.setIdUser(id_user);
 		
 		List<Task> taskList = new ArrayList<Task>();
 		taskList = taskService.findAll();
 		userTask.setIdTask(taskList.get(taskList.size()-1).getId());
+		
 		userTaskService.save(userTask);
 		model.addAttribute("userList", userService.findAll());
 		
@@ -77,11 +79,37 @@ public class TaskController {
 		return "taskId";
 	}
 	
-	@PostMapping("delete/{id}")
-	public String delete(@PathVariable("id") Integer id, Model model) {
-		taskService.delete(id);
+	@PostMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Integer id, @ModelAttribute Task task, Model model) {
+		taskService.delete(taskService.findById(id));
 		model.addAttribute("taskList", taskService.findAll());
 		model.addAttribute("userList", userService.findAll());
+		model.addAttribute("taskUserId", userService.taskUserId());
+		return "task";
+	}
+	
+	@GetMapping("/edit/{id}")
+	public String editById(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("taskId", taskService.findById(id));
+		model.addAttribute("userList", userService.findAll());
+		return "editTask";
+	}
+	
+	@PostMapping("/edit")
+	public String edit(@RequestParam Integer id_user, @ModelAttribute Task task, Model model) {
+		
+		taskService.editTask(task);
+		
+		UserTask userTask = new UserTask();
+		userTask.setIdUser(id_user);
+		userTask.setIdTask(task.getId());
+		userTaskService.save(userTask);
+		
+		
+		//System.out.println(task);
+		model.addAttribute("taskList", taskService.findAll());
+		model.addAttribute("userList", userService.findAll());
+		model.addAttribute("taskUserId", userService.taskUserId());
 		return "task";
 	}
 }

@@ -71,7 +71,17 @@ public class TaskServiceImpl implements ITaskService {
 
 	@Override
 	public void editTask(Task task) {
-		// TODO Auto-generated method stub
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
+		headers.setBearerAuth(principal.get("token").toString());
+
+		HttpEntity<Task> request = new HttpEntity<>(task, headers);
+		System.out.println(request.toString());
+		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/tasks/edit", request, String.class);
 		
 	}
 
@@ -92,7 +102,7 @@ public class TaskServiceImpl implements ITaskService {
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(Task task) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -101,9 +111,9 @@ public class TaskServiceImpl implements ITaskService {
 		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
 		headers.setBearerAuth(principal.get("token").toString());
 
-		HttpEntity<Integer> request = new HttpEntity<>(id, headers);
+		HttpEntity<Task> request = new HttpEntity<>(task, headers);
 		System.out.println(request.toString());
-		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/tasks/delete/"+id, request, String.class);
+		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/tasks/delete", request, String.class);
 		
 	}
 
@@ -123,6 +133,8 @@ public class TaskServiceImpl implements ITaskService {
 		return response.getBody();
 		
 	}
+
+
 
 
 }

@@ -63,12 +63,13 @@
 	<table class="table">
 		<thead class="thead-dark">
 			<tr>
-				
+				<th scope="col">Complete</th>
 				<th scope="col">Task name</th>
 				<th scope="col">Task type</th>
 				<th scope="col">Description</th>
 				<th scope="col">Duration_hours</th>
 				<th scope="col">User</th>
+				<th scope="col">Edit</th>
 				<th scope="col">Assign Task</th>
 				<th scope="col">Delete</th>
 			</tr>
@@ -76,11 +77,14 @@
 		<tbody>
 			<tr th:each="list:${taskList}">
 				
+				<th><input disabled="disabled" type="radio"  th:checked="${list.isMark()}">
+				  <label th:id="${list.id}">Mark</label></th>
 				<th th:text="${list.task_name}">Task name</th>
 				<th th:text="${list.task_type}">Task type</th>
 				<th th:text="${list.description}">Description</th>
 				<th th:text="${list.duration_hours}">Duration hours</th>
 				<th th:text="${taskUserId.get(list.id)}">User</th>
+				<th><a class="btn btn-primary" th:href="@{/tasks/edit/}+${list.id}">Edit</a></th>
 				<th >
 				<form th:action="@{/userTask/create/}+${list.id}" method="post">
 						<button type="submit" class="btn btn-primary">Assign Task Task</button>

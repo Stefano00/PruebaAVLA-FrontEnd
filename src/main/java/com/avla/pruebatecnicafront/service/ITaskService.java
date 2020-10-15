@@ -10,7 +10,8 @@ public interface ITaskService {
 	void createTask(Task task);
 	void editTask(Task task);
 	Task findById(Integer id);
-	void delete (Integer id);
 	List<Task> findTaskByUser(Integer id);
+	void delete(Task task);
+
 
 }
