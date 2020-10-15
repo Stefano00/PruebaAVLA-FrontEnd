@@ -62,11 +62,12 @@
 	<h1>Tasks</h1>
 	
 	<form th:action="@{/userTask/edit}" method="post" th:object="${userTask}">
-		
+		<input type="hidden" th:value="${task.id}" id="idTser" name="idTask">
+		<input type="hidden" th:value="${userTask.id}" id="id_userTask" name="id_userTask">
 		<table class="table">
 		<thead class="thead-dark">
 			<tr>
-				<th scope="col">Id</th>
+				
 				<th scope="col">Task name</th>
 				<th scope="col">Task type</th>
 				<th scope="col">Description</th>
@@ -78,17 +79,17 @@
 		</thead>
 		<tbody>
 			<tr>
-				<th><input type="hidden" th:value="${task.id}" id="id_user" name="id_task"></th>
+				
 				<th th:text="${task.task_name}">Task name</th>
 				<th th:text="${task.task_type}">Task type</th>
 				<th th:text="${task.description}">Description</th>
 				<th th:text="${task.duration_hours}">Duration hours</th>
-				<th >User</th>
+				<th th:text="${user.get(task.id)}">User</th>
 				
 				
 				<th><label for="role" class="col-form-label">User</label>
 					<div class="col-sm-6">
-						<select class="custom-select my-1 mr-sm-2" id="user" name="id_user">
+						<select class="custom-select my-1 mr-sm-2" id="user" name="idUser">
 							<option selected>Assign Task</option>
 							<option th:each="temp:${userList}" th:text="${temp.username}"
 								th:value=${temp.id} >

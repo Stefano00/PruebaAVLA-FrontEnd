@@ -6,5 +6,6 @@ public interface IUserTaskService {
 	
 	void edit (UserTask userTask);
 	void save (UserTask userTask);
+	UserTask findTaskById(Integer id);
 
 }

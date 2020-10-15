@@ -1,7 +1,7 @@
 package com.avla.pruebatecnicafront.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.avla.pruebatecnicafront.model.Task;
+import com.avla.pruebatecnicafront.model.UserTask;
 import com.avla.pruebatecnicafront.service.ITaskService;
 import com.avla.pruebatecnicafront.service.IUserService;
+import com.avla.pruebatecnicafront.service.IUserTaskService;
 
 @Controller
 @CrossOrigin
 @RequestMapping("/tasks")
 public class TaskController {
 
+	@Autowired
+	IUserTaskService userTaskService;
+	
 	@Autowired
 	ITaskService taskService;
 	
@@ -35,6 +40,7 @@ public class TaskController {
 		model.addAttribute("taskList", taskService.findAll());
 		model.addAttribute("userList", userService.findAll());
 		model.addAttribute("taskUserId", userService.taskUserId());
+	
 	/*	Map<Integer,Integer> userTask = new HashMap<Integer,Integer>();
 		userTask=userService.taskUserId();
 		for(Integer list : userTask) {
@@ -46,9 +52,16 @@ public class TaskController {
 	
 	@PostMapping("/create")
 	public String postCreate(@ModelAttribute Task task, @RequestParam Integer id_user, Model model) {
-		//taskService.createTask(task);
-		//model.addAttribute("userList", userService.findAll());
-		System.out.println("ID ES: " + id_user);
+		taskService.createTask(task);
+		UserTask userTask = new UserTask();
+		userTask.setIdUser(id_user);
+		
+		List<Task> taskList = new ArrayList<Task>();
+		taskList = taskService.findAll();
+		userTask.setIdTask(taskList.get(taskList.size()-1).getId());
+		userTaskService.save(userTask);
+		model.addAttribute("userList", userService.findAll());
+		
 		return "createTask";
 	}
 	

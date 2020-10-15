@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class UserTask {
 	
 	private Integer id;
-	private Integer id_user;
-	private Integer id_task;
+	private Integer idUser;
+	private Integer idTask;
 
 }
