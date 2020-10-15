@@ -40,6 +40,7 @@ public class TaskServiceImpl implements ITaskService {
 				});
 		return response.getBody();
 	}
+	
 
 	@Override
 	public void createTask(Task task) {
@@ -75,8 +76,41 @@ public class TaskServiceImpl implements ITaskService {
 	}
 
 	@Override
-	public List<Task> findById(Integer id) {
+	public Task findById(Integer id) {
 		
+		HttpHeaders headers = new HttpHeaders();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
+		headers.setBearerAuth(principal.get("token").toString());
+		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
+
+		ResponseEntity<Task> response = restTemplate.exchange("http://localhost:5000/api/v1/tasks/"+id,
+				HttpMethod.GET, request, new ParameterizedTypeReference<Task>() {
+				});
+		return response.getBody();
+		
+	}
+
+	@Override
+	public void delete(Integer id) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
+		headers.setBearerAuth(principal.get("token").toString());
+
+		HttpEntity<Integer> request = new HttpEntity<>(id, headers);
+		System.out.println(request.toString());
+		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/tasks/delete/"+id, request, String.class);
+		
+	}
+
+
+	@Override
+	public List<Task> findTaskByUser(Integer id) {
+	//	/api/v1/users/taskById/1
 		HttpHeaders headers = new HttpHeaders();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();

@@ -67,4 +67,45 @@ public class UserServiceImpl implements IUserService {
 		
 	}
 
+	@Override
+	public void delete(Integer id) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
+		headers.setBearerAuth(principal.get("token").toString());
+
+		HttpEntity<Integer> request = new HttpEntity<>(id, headers);
+		System.out.println(request.toString());
+		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/users/delete/"+id, request, String.class);
+		
+		/*// check response
+		if (response.getStatusCode() == HttpStatus.CREATED) {
+		    System.out.println("Post Created");
+		    System.out.println(response.getBody());
+		} else {
+		    System.out.println("Request Failed");
+		    System.out.println(response.getStatusCode());
+		}*/
+	}
+
+	@Override
+	public Map<Integer, String> taskUserId() {
+		
+		HttpHeaders headers = new HttpHeaders();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
+		headers.setBearerAuth(principal.get("token").toString());
+		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
+
+		ResponseEntity<Map<Integer, String>> response = restTemplate.exchange("http://localhost:5000/api/v1/users/taskUserId",
+				HttpMethod.GET, request, new ParameterizedTypeReference<Map<Integer, String>>() {
+				});
+		return response.getBody();
+	}
+	
+	
+
 }

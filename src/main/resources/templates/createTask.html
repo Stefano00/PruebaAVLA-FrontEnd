@@ -115,6 +115,20 @@
 					for="markNO">NO</label>
 			</div>
 		</div>
+		
+		<div><label for="role" class="col-form-label">User</label>
+					<div class="col-sm-6">
+						<select class="custom-select my-1 mr-sm-2" id="user" name="id_user">
+							<option selected value=0>Assign Task</option>
+							<option th:each="temp:${userList}" th:text="${temp.username}"
+								th:value=${temp.id} >
+								</option>
+						</select>
+					</div>
+					
+				</div>
+		
+		
 
 		<button type="submit" class="btn btn-primary">Create</button>
 	</form>

@@ -58,6 +58,7 @@
 				<th scope="col">Email</th>
 				<th scope="col">Role</th>
 				<th scope ="col">Tasks</th>	
+				<th scope ="col">Delete</th>	
 				
 			</tr>
 		</thead>
@@ -68,7 +69,12 @@
 				<th th:text="${list.username}"></th>
 				<th th:text="${list.email}"></th>
 				<th th:text="${list.roles}"></th>
-				<th><a class="btn btn-primary"  th:href="@{/tasks/{id}(id = ${list.id})}">Tasks</a></th>		
+				<th><a class="btn btn-primary"  th:href="@{/tasks/{id}(id = ${list.id})}">Tasks</a></th>	
+				<th>
+					<form th:action="@{/users/delete/}+${list.id}" method="post">
+						<button  type="submit" class="btn btn-primary" >Delete User</button>
+					</form>
+				</th>	
 			</tr>
 		</tbody>
 	</table>

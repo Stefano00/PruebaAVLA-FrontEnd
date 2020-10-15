@@ -6,9 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.avla.pruebatecnicafront.model.Role;
 import com.avla.pruebatecnicafront.model.User;
 import com.avla.pruebatecnicafront.service.IUserService;
 
@@ -24,19 +26,27 @@ public class UsersController {
 	@GetMapping("/all")
 	public String findAll(Model model) {
 		model.addAttribute("userList", userService.findAll());
-		System.out.println(userService.findAll());
 		return "users";
 	}
 	
 	@GetMapping("/create")
-	public String getCreate() {
-		
+	public String getCreate(Model model) {
+		model.addAttribute("roles", Role.values());
+				
 		return "createUser";
 	}
 	
 	@PostMapping("/create")
 	public String postCreate(@ModelAttribute User user) {
 		userService.save(user);
+	
 		return "createUser";
+	}
+	
+	@PostMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Integer id, Model model) {
+		userService.delete(id);		
+		model.addAttribute("userList", userService.findAll());
+		return "users";
 	}
 }
