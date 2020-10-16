@@ -16,13 +16,16 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <!--  <meta charset="ISO-8859-1">-->
 <meta charset="utf-8">
 <title>PRUEBA TECNICA AVLA</title>
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar  navbar-expand-lg navbar-dark" style="background-color: #4285F4">
 		<a class="navbar-brand" href="/home">PRUEBA TECNICA AVLA</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -61,11 +64,11 @@
 
 	<h1>Tasks</h1>
 	
-	<form th:action="@{/userTask/edit}" method="post" th:object="${userTask}">
+	<form th:action="@{/userTask/edit}" method="post" th:object="${userTask}" class="animate__animated animate__fadeIn animate__fadeInLeft" style="padding:10px">
 		<input type="hidden" th:value="${task.id}" id="idTser" name="idTask">
 		<input type="hidden" th:value="${userTask.id}" id="id_userTask" name="id_userTask">
 		<table class="table">
-		<thead class="thead-dark">
+		<thead class="table-primary">
 			<tr>
 				
 				<th scope="col">Task name</th>

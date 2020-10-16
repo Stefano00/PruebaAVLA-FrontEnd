@@ -24,11 +24,13 @@
 	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 	crossorigin="anonymous"></script>
 
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
-<body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body >
+	<nav class="navbar navbar-expand-lg navbar-dark"
+		style="background-color: #4285F4">
 		<a class="navbar-brand" href="/home">PRUEBA TECNICA AVLA</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -43,51 +45,54 @@
 						<span class="sr-only"></span>
 				</a></li>
 				<li class="nav-item dropdown "><a
-					class="nav-link dropdown-toggle " href="/users/all" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Users </a>
+					class="nav-link dropdown-toggle " href="/users/all"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Users </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="/users/all">All Users</a> <a
-							class="dropdown-item " href="/users/create">Create User</a> 
-							
-					</div>
-					</li>
+							class="dropdown-item " href="/users/create">Create User</a>
+
+					</div></li>
 				<li class="nav-item dropdown "><a
-					class="nav-link dropdown-toggle active" href="/tasks/all" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> Tasks </a>
+					class="nav-link dropdown-toggle active" href="/tasks/all"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Tasks </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="/tasks/all">All tasks</a> <a
-							class="dropdown-item active" href="/tasks/create">Create task</a> 
-							
+							class="dropdown-item active" href="/tasks/create">Create task</a>
+
 					</div></li>
 			</ul>
 
 		</div>
 	</nav>
 
-	<h1>tareas</h1>
+	<h1>Task</h1>
 
-	<form th:action="@{/tasks/create}" method="post" th:object=${task}>
+	<form th:action="@{/tasks/create}" method="post" th:object=${task}
+		class="animate__animated animate__fadeIn " style="padding:10px">
+
 		<div class="form-row">
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-6">
 				<label for="name">Name</label> <input type="text"
 					class="form-control" id="name" name="task_name">
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-6">
 				<label for="type">Type</label> <input type="text"
 					class="form-control" id="type" name="task_type">
 			</div>
 
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<label for="duration">Duration in hours</label> <input type="number"
 					class="form-control" id="duration" name="duration_hours">
 			</div>
+
+			<div class="form-group col-md-9">
+				<label for="duration">Description</label> <input type="text"
+					class="form-control" id="duration" name="description">
+			</div>
 		</div>
-		<div class="form-group col-md-12">
-			<label for="duration">Description</label> <input type="text"
-				class="form-control" id="duration" name="description">
-		</div>
+
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="startDate">Start</label> <input type="Date"
@@ -102,33 +107,33 @@
 		<div class="form-row">
 
 
-			<div class="col-sm-12 col-md-6 justify-content-end">
+			<div class="col-sm-12 col-md-4 justify-content-end">
 				Mark <br> <input type="radio" id="markYES" name="mark"
 					value="true"> <label for="mark">YES</label> <input
 					type="radio" id="markNO" name="mark" value="false"> <label
 					for="mark">NO</label>
 			</div>
-			<div class="col-sm-12 col-md-6 justify-content-end">
+			<div class="col-sm-12 col-md-4 justify-content-end">
 				Process <br> <input type="radio" id="processYES" name="process"
 					value="true"> <label for="markYES">YES</label> <input
 					type="radio" id="processNO" name="process" value="false"> <label
 					for="markNO">NO</label>
 			</div>
-		</div>
-		
-		<div><label for="role" class="col-form-label">User</label>
-					<div class="col-sm-6">
-						<select class="custom-select my-1 mr-sm-2" id="user" name="id_user">
-							<option selected value=0>Assign Task</option>
-							<option th:each="temp:${userList}" th:text="${temp.username}"
-								th:value=${temp.id} >
-								</option>
-						</select>
-					</div>
-					
+
+			<div class="col-sm-12 col-md-4 justify-content-end">User
+
+<!-- 				<label for="role" class="col-form-label">User</label> -->
+				<div class="col-sm-4">
+					<select class="custom-select my-1 mr-sm-12" id="user" name="id_user">
+						<option selected value=0>Assign Task</option>
+						<option th:each="temp:${userList}" th:text="${temp.username}"
+							th:value=${temp.id}></option>
+					</select>
 				</div>
-		
-		
+
+			</div>
+		</div>
+
 
 		<button type="submit" class="btn btn-primary">Create</button>
 	</form>

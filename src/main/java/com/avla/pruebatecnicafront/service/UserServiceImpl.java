@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.avla.pruebatecnicafront.dto.UserDTO;
+import com.avla.pruebatecnicafront.model.Task;
 import com.avla.pruebatecnicafront.model.User;
 
 @Service
@@ -104,6 +105,21 @@ public class UserServiceImpl implements IUserService {
 				HttpMethod.GET, request, new ParameterizedTypeReference<Map<Integer, String>>() {
 				});
 		return response.getBody();
+	}
+
+	@Override
+	public User findById(Integer id) {
+		HttpHeaders headers = new HttpHeaders();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
+		headers.setBearerAuth(principal.get("token").toString());
+		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
+
+		ResponseEntity<User> response = restTemplate.exchange("http://localhost:5000/api/v1/tasks/"+id,
+				HttpMethod.GET, request, new ParameterizedTypeReference<User>() {
+				});
+		return response.getBody();
+		
 	}
 	
 	

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.avla.pruebatecnicafront.model.Task;
+import com.avla.pruebatecnicafront.model.User;
 import com.avla.pruebatecnicafront.model.UserTask;
 import com.avla.pruebatecnicafront.service.ITaskService;
 import com.avla.pruebatecnicafront.service.IUserService;
@@ -62,9 +63,12 @@ public class TaskController {
 		userTask.setIdTask(taskList.get(taskList.size()-1).getId());
 		
 		userTaskService.save(userTask);
-		model.addAttribute("userList", userService.findAll());
 		
-		return "createTask";
+		model.addAttribute("taskList", taskService.findAll());
+		model.addAttribute("userList", userService.findAll());
+		model.addAttribute("taskUserId", userService.taskUserId());
+		
+		return "task";
 	}
 	
 	@GetMapping("/create")
@@ -90,8 +94,19 @@ public class TaskController {
 	
 	@GetMapping("/edit/{id}")
 	public String editById(@PathVariable("id") Integer id, Model model) {
+		
 		model.addAttribute("taskId", taskService.findById(id));
 		model.addAttribute("userList", userService.findAll());
+		model.addAttribute("taskUserId", userService.taskUserId());
+		for(User list : userService.findAll()) {
+			if(list.getUsername().equals(userService.taskUserId().get(id))) {
+				Integer idUser = list.getId();
+				model.addAttribute("idUser", idUser);
+			}
+		}
+		
+		
+		
 		return "editTask";
 	}
 	

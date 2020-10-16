@@ -5,12 +5,14 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <!--  <meta charset="ISO-8859-1">-->
  <meta charset="utf-8">
 <title>PRUEBA TECNICA AVLA</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4285F4">
 		<a class="navbar-brand" href="/home">PRUEBA TECNICA AVLA</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -49,10 +51,10 @@
 	</nav>
 	
 	<h1>Users</h1>
-		<table class="table">
-		<thead class="thead-dark">
+		<table style="padding:10px" class="table animate__animated animate__fadeIn">
+		<thead class="table-primary">
 			<tr>
-				<th scope="col">Id</th>
+				
 				<th scope="col">Name</th>
 				<th scope="col">Username</th>
 				<th scope="col">Email</th>
@@ -64,7 +66,7 @@
 		</thead>
 		<tbody>
 			<tr th:each="list:${userList}">
-				<th th:text="${list.id}"></th>
+				
 				<th th:text="${list.name}"></th>
 				<th th:text="${list.username}"></th>
 				<th th:text="${list.email}"></th>

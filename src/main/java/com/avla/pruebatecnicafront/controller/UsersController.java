@@ -37,10 +37,10 @@ public class UsersController {
 	}
 	
 	@PostMapping("/create")
-	public String postCreate(@ModelAttribute User user) {
+	public String postCreate(@ModelAttribute User user,Model model) {
 		userService.save(user);
-	
-		return "createUser";
+		model.addAttribute("userList", userService.findAll());
+		return "users";
 	}
 	
 	@PostMapping("/delete/{id}")

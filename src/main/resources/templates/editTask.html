@@ -23,12 +23,13 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 	crossorigin="anonymous"></script>
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar  navbar-expand-lg navbar-dark" style="background-color: #4285F4">
 		<a class="navbar-brand" href="/home">PRUEBA TECNICA AVLA</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -66,9 +67,9 @@
 		</div>
 	</nav>
 
-	<h1>tareas</h1>
+	<h1>Tasks</h1>
 
-	<form th:action="@{/tasks/edit}" method="post" th:object=${task}>
+	<form th:action="@{/tasks/edit}" method="post" th:object=${task} class="animate__animated animate__fadeIn animate__fadeInLeft" style="padding:10px">
 		<input type="hidden" th:value="${taskId.id}" id="id" name="id">
 		<div class="form-row">
 			<div class="form-group col-md-4">
@@ -120,7 +121,7 @@
 		<div><label for="role" class="col-form-label">User</label>
 					<div class="col-sm-6">
 						<select class="custom-select my-1 mr-sm-2" id="user" name="id_user" >
-							<option selected value=0>Assign Task</option>
+							<option selected th:value="${idUser}" th:text=${taskUserId.get(taskId.id)}>Assign Task</option>
 							<option th:each="temp:${userList}" th:text="${temp.username}"
 								th:value=${temp.id} >
 								</option>
