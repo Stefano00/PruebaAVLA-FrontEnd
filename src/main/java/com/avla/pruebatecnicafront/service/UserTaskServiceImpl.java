@@ -23,6 +23,9 @@ import com.avla.pruebatecnicafront.model.UserTask;
 @Service
 public class UserTaskServiceImpl implements IUserTaskService {
 
+	String url="http://localhost:5000";
+	//String url="http://avla-backend.us-east-2.elasticbeanstalk.com";
+	
 	@Autowired
 	private RestTemplate restTemplate;
 	
@@ -35,6 +38,8 @@ public class UserTaskServiceImpl implements IUserTaskService {
 
 	@Override
 	public void save(UserTask userTask) {
+		
+	
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -45,7 +50,7 @@ public class UserTaskServiceImpl implements IUserTaskService {
 
 		HttpEntity<UserTask> request = new HttpEntity<>(userTask, headers);
 		System.out.println(request.toString());
-		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/userTask/create", request, String.class);
+		ResponseEntity<String> response = restTemplate.postForEntity(url + "/api/v1/userTask/create", request, String.class);
 		
 
 	}
@@ -59,7 +64,7 @@ public class UserTaskServiceImpl implements IUserTaskService {
 		headers.setBearerAuth(principal.get("token").toString());
 		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
 
-		ResponseEntity<UserTask> response = restTemplate.exchange("http://localhost:5000/api/v1/userTask/"+id,
+		ResponseEntity<UserTask> response = restTemplate.exchange(url + "/api/v1/userTask/"+id,
 				HttpMethod.GET, request, new ParameterizedTypeReference<UserTask>() {
 				});
 		return response.getBody();

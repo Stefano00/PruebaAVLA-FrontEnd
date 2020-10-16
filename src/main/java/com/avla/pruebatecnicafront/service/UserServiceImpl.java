@@ -24,6 +24,10 @@ import com.avla.pruebatecnicafront.model.User;
 @Service
 public class UserServiceImpl implements IUserService {
 
+	String url="http://localhost:5000";
+	//String url="http://avla-backend.us-east-2.elasticbeanstalk.com";
+
+	
 	@Autowired
 	private RestTemplate restTemplate;
 	
@@ -35,7 +39,7 @@ public class UserServiceImpl implements IUserService {
 		headers.setBearerAuth(principal.get("token").toString());
 		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
 
-		ResponseEntity<List<User>> response = restTemplate.exchange("http://localhost:5000/api/v1/users/all",
+		ResponseEntity<List<User>> response = restTemplate.exchange(url+"/api/v1/users/all",
 				HttpMethod.GET, request, new ParameterizedTypeReference<List<User>>() {
 				});
 		return response.getBody();
@@ -43,7 +47,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void save(User user) {
-		
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -55,7 +58,7 @@ public class UserServiceImpl implements IUserService {
 
 		HttpEntity<User> request = new HttpEntity<>(user, headers);
 		System.out.println(request.toString());
-		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/signUp", request, String.class);
+		ResponseEntity<String> response = restTemplate.postForEntity(url+"/api/v1/signUp", request, String.class);
 		
 		// check response
 		if (response.getStatusCode() == HttpStatus.CREATED) {
@@ -80,7 +83,7 @@ public class UserServiceImpl implements IUserService {
 
 		HttpEntity<Integer> request = new HttpEntity<>(id, headers);
 		System.out.println(request.toString());
-		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/users/delete/"+id, request, String.class);
+		ResponseEntity<String> response = restTemplate.postForEntity(url+"/api/v1/users/delete/"+id, request, String.class);
 		
 		/*// check response
 		if (response.getStatusCode() == HttpStatus.CREATED) {
@@ -101,7 +104,7 @@ public class UserServiceImpl implements IUserService {
 		headers.setBearerAuth(principal.get("token").toString());
 		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
 
-		ResponseEntity<Map<Integer, String>> response = restTemplate.exchange("http://localhost:5000/api/v1/users/taskUserId",
+		ResponseEntity<Map<Integer, String>> response = restTemplate.exchange(url+"/api/v1/users/taskUserId",
 				HttpMethod.GET, request, new ParameterizedTypeReference<Map<Integer, String>>() {
 				});
 		return response.getBody();
@@ -115,7 +118,7 @@ public class UserServiceImpl implements IUserService {
 		headers.setBearerAuth(principal.get("token").toString());
 		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
 
-		ResponseEntity<User> response = restTemplate.exchange("http://localhost:5000/api/v1/tasks/"+id,
+		ResponseEntity<User> response = restTemplate.exchange(url+"/api/v1/tasks/"+id,
 				HttpMethod.GET, request, new ParameterizedTypeReference<User>() {
 				});
 		return response.getBody();

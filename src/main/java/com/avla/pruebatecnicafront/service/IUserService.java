@@ -9,8 +9,8 @@ public interface IUserService {
 	
 	List<User> findAll();
 	void save(User user);
-	void delete(Integer id);
 	Map<Integer, String> taskUserId();
 	User findById(Integer id);
+	void delete(Integer id);
 
 }

@@ -24,6 +24,9 @@ import com.avla.pruebatecnicafront.model.Task;
 @Service
 public class TaskServiceImpl implements ITaskService {
 
+	String url="http://localhost:5000";
+	//String url="http://avla-backend.us-east-2.elasticbeanstalk.com";
+	
 	@Autowired
 	private RestTemplate restTemplate;
 
@@ -35,7 +38,7 @@ public class TaskServiceImpl implements ITaskService {
 		headers.setBearerAuth(principal.get("token").toString());
 		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
 
-		ResponseEntity<List<Task>> response = restTemplate.exchange("http://localhost:5000/api/v1/tasks/all",
+		ResponseEntity<List<Task>> response = restTemplate.exchange(url+"/api/v1/tasks/all",
 				HttpMethod.GET, request, new ParameterizedTypeReference<List<Task>>() {
 				});
 		return response.getBody();
@@ -45,7 +48,6 @@ public class TaskServiceImpl implements ITaskService {
 	@Override
 	public void createTask(Task task) {
 		
-	
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -56,7 +58,7 @@ public class TaskServiceImpl implements ITaskService {
 
 		HttpEntity<Task> request = new HttpEntity<>(task, headers);
 		System.out.println(request.toString());
-		 ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/tasks/create", request, String.class);
+		 ResponseEntity<String> response = restTemplate.postForEntity(url+"/api/v1/tasks/create", request, String.class);
 		
 		// check response
 		if (response.getStatusCode() == HttpStatus.CREATED) {
@@ -81,20 +83,19 @@ public class TaskServiceImpl implements ITaskService {
 
 		HttpEntity<Task> request = new HttpEntity<>(task, headers);
 		System.out.println(request.toString());
-		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/tasks/edit", request, String.class);
+		ResponseEntity<String> response = restTemplate.postForEntity(url+"/api/v1/tasks/edit", request, String.class);
 		
 	}
 
 	@Override
 	public Task findById(Integer id) {
-		
 		HttpHeaders headers = new HttpHeaders();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
 		headers.setBearerAuth(principal.get("token").toString());
 		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
 
-		ResponseEntity<Task> response = restTemplate.exchange("http://localhost:5000/api/v1/tasks/"+id,
+		ResponseEntity<Task> response = restTemplate.exchange(url+"/api/v1/tasks/"+id,
 				HttpMethod.GET, request, new ParameterizedTypeReference<Task>() {
 				});
 		return response.getBody();
@@ -113,21 +114,21 @@ public class TaskServiceImpl implements ITaskService {
 
 		HttpEntity<Task> request = new HttpEntity<>(task, headers);
 		System.out.println(request.toString());
-		ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:5000/api/v1/tasks/delete", request, String.class);
+		ResponseEntity<String> response = restTemplate.postForEntity(url+"/api/v1/tasks/delete", request, String.class);
 		
 	}
 
 
 	@Override
 	public List<Task> findTaskByUser(Integer id) {
-	//	/api/v1/users/taskById/1
+	
 		HttpHeaders headers = new HttpHeaders();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Map<String, Object> principal = (Map<String, Object>) auth.getPrincipal();
 		headers.setBearerAuth(principal.get("token").toString());
 		HttpEntity<UserDTO> request = new HttpEntity<>(headers);
 
-		ResponseEntity<List<Task>> response = restTemplate.exchange("http://localhost:5000/api/v1/users/taskById/"+id,
+		ResponseEntity<List<Task>> response = restTemplate.exchange(url+"/api/v1/users/taskById/"+id,
 				HttpMethod.GET, request, new ParameterizedTypeReference<List<Task>>() {
 				});
 		return response.getBody();

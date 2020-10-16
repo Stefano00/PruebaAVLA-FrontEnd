@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.avla.pruebatecnicafront.model.Role;
 import com.avla.pruebatecnicafront.model.User;
 import com.avla.pruebatecnicafront.service.IUserService;
+import com.avla.pruebatecnicafront.service.IUserTaskService;
 
 @Controller
 @CrossOrigin
@@ -22,6 +23,9 @@ public class UsersController {
 	
 	@Autowired
 	IUserService userService;
+	
+	@Autowired
+	IUserTaskService userTaskService;
 	
 	@GetMapping("/all")
 	public String findAll(Model model) {
@@ -45,7 +49,8 @@ public class UsersController {
 	
 	@PostMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id, Model model) {
-		userService.delete(id);		
+		
+		userService.delete(id);	
 		model.addAttribute("userList", userService.findAll());
 		return "users";
 	}

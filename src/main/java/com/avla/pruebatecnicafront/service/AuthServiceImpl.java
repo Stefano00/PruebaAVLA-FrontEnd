@@ -18,11 +18,13 @@ public class AuthServiceImpl implements IAuthService {
 
 	@Override
 	public ResponseEntity signin(String usernames, String password) {
+		//String url="http://localhost:5000";
+		String url="http://avla-backend.us-east-2.elasticbeanstalk.com";
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUsername(usernames);
 		userDTO.setPassword(password);
 		HttpEntity<UserDTO> request = new HttpEntity<>(userDTO);
-		return restTemplate.postForEntity("http://localhost:5000/api/v1/signIn", request, String.class);
+		return restTemplate.postForEntity(url + "/api/v1/signIn", request, String.class);
 		
 	}
 
