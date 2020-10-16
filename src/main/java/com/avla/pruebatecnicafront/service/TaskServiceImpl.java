@@ -24,8 +24,8 @@ import com.avla.pruebatecnicafront.model.Task;
 @Service
 public class TaskServiceImpl implements ITaskService {
 
-	String url="http://localhost:5000";
-	//String url="http://avla-backend.us-east-2.elasticbeanstalk.com";
+	//String url="http://localhost:5000";
+	String url="http://avla-backend.us-east-2.elasticbeanstalk.com";
 	
 	@Autowired
 	private RestTemplate restTemplate;

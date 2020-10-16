@@ -24,8 +24,8 @@ import com.avla.pruebatecnicafront.model.User;
 @Service
 public class UserServiceImpl implements IUserService {
 
-	String url="http://localhost:5000";
-	//String url="http://avla-backend.us-east-2.elasticbeanstalk.com";
+	//String url="http://localhost:5000";
+	String url="http://avla-backend.us-east-2.elasticbeanstalk.com";
 
 	
 	@Autowired

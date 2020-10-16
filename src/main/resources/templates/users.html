@@ -54,30 +54,30 @@
 		<table style="padding:10px" class="table animate__animated animate__fadeIn">
 		<thead class="table-primary">
 			<tr>
-				<th scope="col">Id</th>
+<!-- 				<th scope="col">Id</th> -->
 				<th scope="col">Name</th>
 				<th scope="col">Username</th>
 				<th scope="col">Email</th>
 				<th scope="col">Role</th>
 				<th scope ="col">Tasks</th>	
-<!-- 				<th scope ="col">Delete</th>	 -->
+				<th scope ="col">Delete</th>	
 				
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="list:${userList}">
 				
-				<th th:text="${list.id}"></th>
+<!-- 				<th th:text="${list.id}"></th> -->
 				<th th:text="${list.name}"></th>
 				<th th:text="${list.username}"></th>
 				<th th:text="${list.email}"></th>
 				<th th:text="${list.roles}"></th>
 				<th><a class="btn btn-primary"  th:href="@{/tasks/{id}(id = ${list.id})}">Tasks</a></th>	
-<!-- 				<th> -->
-<!-- 					<form th:action="@{/users/delete/}+${list.id}" method="post"> -->
-<!-- 						<button  type="submit" class="btn btn-primary" >Delete User</button> -->
-<!-- 					</form> -->
-<!-- 				</th>	 -->
+				<th>
+					<form th:action="@{/users/delete/}+${list.id}" method="post">
+						<button  type="submit" class="btn btn-primary" >Delete User</button>
+					</form>
+				</th>	
 			</tr>
 		</tbody>
 	</table>
